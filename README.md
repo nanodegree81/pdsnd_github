@@ -1,7 +1,5 @@
 ### Date created
-<<<<<<<
 03.08.2021, update Readme on 16.08.2021
->>>>>>>
 
 refs/remotes/origin/documentation
 
