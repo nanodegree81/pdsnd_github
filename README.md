@@ -1,9 +1,9 @@
 ### Date created
-<<<<<<< HEAD
-Include the date you created this project and README file.
-=======
-03.08.2021, update Readme on 16.08.2021, and second one
->>>>>>> refs/remotes/origin/documentation
+<<<<<<<
+03.08.2021, update Readme on 16.08.2021
+>>>>>>>
+
+refs/remotes/origin/documentation
 
 ### Project Title
 Bikeshare Analysis
