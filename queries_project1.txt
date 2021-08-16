@@ -1,0 +1,88 @@
+/*Q1 - Query 1 - query used for first insight*/
+SELECT 
+        DATE_TRUNC('day', r.rental_date) rentday,
+        i.store_id,
+        count(*) rentcount
+FROM rental r
+
+JOIN inventory i 
+ON i.inventory_id = r.inventory_id
+
+WHERE r.rental_date BETWEEN '2005-05-01 00:00:00' AND '2005-05-31 23:59:59'
+GROUP by i.store_id,  rentday
+ORDER BY i.store_id;
+
+/*Q2 - Query 2 - query used for second insight*/
+SELECT 
+        src.rentmonth,
+        src.store_id,
+        SUM(rental_rate) turnover
+
+FROM
+(
+        SELECT 
+                DATE_TRUNC('month', r.rental_date) rentmonth,
+                i.store_id,
+                f.rental_rate   
+        FROM rental r
+        
+        JOIN inventory i 
+        ON i.inventory_id = r.inventory_id
+        
+        JOIN film f 
+        ON i.film_id = f.film_id
+        
+        WHERE r.rental_date BETWEEN '0001-01-01 00:00:00' AND '9999-12-31 23:59:59'
+        ORDER BY i.store_id
+) src
+
+GROUP BY src.rentmonth, src.store_id
+ORDER BY src.rentmonth, src.store_id;
+
+/*Q3 - Query 3 - query used for third insight*/
+SELECT
+        c.name,
+        count(f.film_id) * 100.0 / (select count(*) from film_category) as perc
+FROM film_category fc
+JOIN category c 
+ON fc.category_id = c.category_id
+JOIN film f ON f.film_id = fc.film_id
+GROUP BY c.name;
+
+/*Q4 - Query 4 - query used for fourth insight*/
+WITH julrent AS (
+        SELECT
+                DATE_TRUNC('month', r.rental_date) rentmonth,
+                f.film_id  
+        FROM rental r
+        
+        JOIN inventory i 
+        ON i.inventory_id = r.inventory_id
+        
+        JOIN film f 
+        ON i.film_id = f.film_id
+        
+        WHERE r.rental_date BETWEEN '2005-07-01 00:00:00' AND '2005-07-31 23:59:59'
+        ORDER BY i.store_id
+        ),
+    
+filmcat AS(
+        SELECT
+                c.name,
+                f.film_id
+        FROM film_category fc
+        
+        JOIN category c
+        ON fc.category_id = c.category_id
+        
+        JOIN film f
+        ON f.film_id = fc.film_id
+        )
+
+SELECT 
+        count(f.name)* 100.0 / (select count(*) from julrent) as perc, 
+        f.name 
+FROM julrent j
+LEFT JOIN filmcat f 
+ON j.film_id = f.film_id
+GROUP BY f.name;
