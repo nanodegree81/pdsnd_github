@@ -1,19 +1,25 @@
+#Import neccessary stuff
 import time
 import pandas as pd
 import numpy as np
 
+#create an fill variables
 wrong_input = "This is not a valid choice. Please try again. "
 ques_city = "Would you like to see Chicago, New York, or Washington? "
 ques_month = "Would you like filter by month? If 'Yes' type the name (e.g. January), if not type 'None' "
 ques_day = "Would you like filter by day? If 'Yes' type the name (e.g. Monday), if not type 'None' "
 
+#import data
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+#create arrays
 city_list = ['Chicago', 'New York', 'Washington']
 month_list = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'None']
 day_list = ['Monday', 'Tuesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'None']
+
+#METHODS
 
 def get_filters():
     """
