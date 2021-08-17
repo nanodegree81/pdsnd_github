@@ -1,21 +1,26 @@
-#Credentials by Nanodegree81
+#Import neccessary stuff
 import time
 import pandas as pd
 import numpy as np
 
+#create an fill variables
 wrong_input = "This is not a valid choice. Please try again. "
 ques_city = "Would you like to see Chicago, New York, or Washington? "
 ques_month = "Would you like filter by month? If 'Yes' type the name (e.g. January), if not type 'None' "
 ques_day = "Would you like filter by day? If 'Yes' type the name (e.g. Monday), if not type 'None' "
 
+#import data
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+#create arrays
 city_list = ['Chicago', 'New York', 'Washington']
 month_list = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'None']
 day_list = ['Monday', 'Tuesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'None']
 
+#METHODS
+### Get the input data from the user
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -56,7 +61,7 @@ def get_filters():
     print('-'*40)
     return input_city, input_month, input_day
 
-
+### load csv files based on the input data
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -93,7 +98,7 @@ def load_data(city, month, day):
     #TO DO: Filtern  
     return df
 
-
+###Calculate the most frequent times of travel
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
@@ -115,7 +120,7 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
+### Calculate the most popular stations and trip
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -135,6 +140,7 @@ def station_stats(df):
     print('-'*40)
 
 
+### Calculate the total and average trip duration
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
@@ -151,6 +157,7 @@ def trip_duration_stats(df):
     print('-'*40)
 
 
+###Display the results
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
@@ -169,7 +176,7 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
+### Main Function
 def main():
     while True:
         city, month, day = get_filters()
